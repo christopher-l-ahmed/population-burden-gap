@@ -10,7 +10,7 @@ The analysis is written in R using the tidyverse for maximum readability.
 # Citation
 If you use this metric or code in your work, please cite: (forthcoming)
 
-# :muscle:The Easy Way to Use This GitHub Repository
+# :raising_hand:The Easy Way to Use This GitHub Repository
 If you’re newer to GitHub or newer to working with multiple R and Quarto files, this section is for you. I’ll walk you through:
 
 1. The different files in my repository

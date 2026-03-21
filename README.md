@@ -14,7 +14,7 @@ If you use this metric or code in your work, please cite: (forthcoming)
 If you’re newer to GitHub or newer to working with multiple R and Quarto files, this section is for you. I’ll walk you through:
 
 1. The different files in my repository
-2. Why I organized this work across several Quarto and R files (instead of one long script)
-3. And what you can expect each Quarto and R file to do (at a high level)
+2. Why I used several Quarto and R files (instead of one long script)
+3. And what to expect each Quarto and R file to do (at a high level)
 
-After that, you'll be ready to start running the R code in this repository.
+After that, you'll be ready to start running the R code in this repository with ease!

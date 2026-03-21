@@ -10,5 +10,11 @@ The analysis is written in R using the tidyverse for maximum readability.
 # Citation
 If you use this metric or code in your work, please cite: (forthcoming)
 
-# The Easy Way to use this GitHub Repository
-If you know your way around a GitHub Repository, feel free to skip this section. If you're new, this section is for you! I will walk you through the different files I added to this repository, explain why I used these different files instead of one, and what the code in each file does (at a high level).
+# The Easy Way to Use This GitHub Repository
+If you’re newer to GitHub or newer to working with multiple R and Quarto files, this section is for you. I’ll walk you through:
+
+1. The different files in my repository
+2. Why I organized this work across several Quarto and R files (instead of one long script)
+3. And what you can expect each Quarto and R file to do (at a high level)
+
+After that, you'll be ready to start running the R code in this repository.

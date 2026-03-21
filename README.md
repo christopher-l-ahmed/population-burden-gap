@@ -16,16 +16,6 @@ You can also cite the GitHub repository directly if you want to reference the co
 
 
 # The Easy Way to Use This GitHub Repository
-If you’re newer to GitHub or newer to working with multiple R and Quarto files, this section is for you. I’ll walk you through:
-
-1. The different files in my repository and the tasks they run (at a high level)
-2. Why I used several Quarto and R files (instead of one long script)
-
-After that, you'll be ready to start running the R code in this repository with ease!
-
-
-## <span style="color:#2e6f40;">The Easy Way to Use This GitHub Repository</span>
-
 If you’re newer to GitHub or to working with multiple R and Quarto files, this section is for you. I’ll walk you through:
 
 - the different files in my repository and the tasks they run (at a high level)  

@@ -18,3 +18,47 @@ If you’re newer to GitHub or newer to working with multiple R and Quarto files
 3. And what to expect each Quarto and R file to do (at a high level)
 
 After that, you'll be ready to start running the R code in this repository with ease!
+
+## 📁 R/ — The Metric Functions
+
+This folder contains the core functions used throughout the analysis. Each function lives in its own file so you can easily find, read, and reuse it. For example:
+
+- `compute_pbg.R` — calculates the Population Burden Gap (PBG)
+- `compute_delta_pbg.R` — calculates the longitudinal change metric ΔPBG
+- `helpers.R` — small utility functions used by the main metrics
+
+You don’t need to edit these files. You’ll simply load them at the top of each Quarto document using `source()`.
+
+---
+
+## 📄 analysis/ — The Quarto Analysis Files
+
+Each Quarto (`.qmd`) file corresponds to one major part of the analysis. This keeps each document short, readable, and focused. The workflow inside each file follows the same pattern:
+
+1. Load libraries  
+2. Load the metric functions from the `R/` folder  
+3. Load the relevant dataset(s)  
+4. Brief comments explaining the purpose of the file  
+5. Code that carries out that specific part of the analysis  
+
+The files are organized in the order you should run them:
+
+- `01_baseline.qmd` — calculates PBG and ΔPBG using the three EHD Map versions  
+- `02_sensitivity_1.qmd` — runs sensitivity analysis #1 and recomputes the metrics  
+- `03_sensitivity_2.qmd` — sensitivity analysis #2  
+- `04_sensitivity_3.qmd` — sensitivity analysis #3  
+- `05_sensitivity_4.qmd` *(if applicable)*  
+- `06_compare_sensitivity.qmd` — compares all sensitivity analyses to the baseline  
+
+You can open and run these files one at a time. Each one is self‑contained.
+
+---
+
+## 🚀 How to Get Started
+
+If you’re new to this repository, the easiest way to begin is:
+
+1. Open `analysis/01_baseline.qmd`  
+2. Run the document from top to bottom  
+3. Move on to the sensitivity files if you want to explore how robust the metrics are  
+

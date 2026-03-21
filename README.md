@@ -21,13 +21,13 @@ After that, you'll be ready to start running the R code in this repository with 
 
 ## 📁 R/ — The Metric Functions
 
-This folder contains the core functions used throughout the analysis. Each function lives in its own file.
+This folder contains functions used throughout the analysis. Each function lives in its own file.
 
 - `compute_pbg.R` — calculates Population Burden Gap (PBG)
 - `compute_delta_pbg.R` — calculates the change between two map verions' PBG values (ΔPBG)
-- `helpers.R` — more functions used to help/simplify code along the way
+- `helpers.R` — more functions used to simplify code along the way
 
-You don’t need to edit these files. Instead, the Quarto documents will pull them in using `source()`.
+You don’t need to edit these files. Instead, Quarto will read them using `source()`.
 
 ---
 

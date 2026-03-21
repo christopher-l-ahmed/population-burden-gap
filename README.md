@@ -8,7 +8,12 @@ For the full theoretical framework, including the Failure of Distribution (FoD) 
 The analysis is written in R using the tidyverse for maximum readability.
 
 # Citation
-If you use this metric or code in your work, please cite: (forthcoming)
+If you use this metric or code in your work, please cite the forthcoming paper: (forthcoming)
+
+You can also cite the GitHub repository directly if you want to reference the code itself — the implementation, the workflow, the reproducibility. This is the canonical home of PBG and ΔPBG.
+
+* Christopher Ahmed. (2026). *Population Burden Gap (PBG) and ΔPBG metrics: Reproducible code and analysis*. GitHub repository. https://github.com/christopher-l-ahmed/populatoin-burden-gap
+
 
 # The Easy Way to Use This GitHub Repository
 If you’re newer to GitHub or newer to working with multiple R and Quarto files, this section is for you. I’ll walk you through:

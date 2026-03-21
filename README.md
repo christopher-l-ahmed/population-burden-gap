@@ -11,7 +11,7 @@ The analysis is written in R using the tidyverse for maximum readability.
 If you use this metric or code in your work, please cite: (forthcoming)
 
 # The Easy Way to Use This GitHub Repository
-:raising_hand:If you’re newer to GitHub or newer to working with multiple R and Quarto files, this section is for you. I’ll walk you through:
+:evergreen_tree:If you’re newer to GitHub or newer to working with multiple R and Quarto files, this section is for you. I’ll walk you through:
 
 1. The different files in my repository
 2. Why I used several Quarto and R files (instead of one long script)

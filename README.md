@@ -31,7 +31,7 @@ You don’t need to edit these files. Instead, Quarto will read them using `sour
 
 ---
 
-## 📄 Quarto/ — Analysis Runs in Seperate .qmd Quarto Files
+## 📄 Quarto/ — Analysis in Seperate .qmd Quarto Files
 
 Each Quarto (`.qmd`) file corresponds to one major part of the analysis. This keeps each document short, readable, and focused. The workflow inside each file follows the same pattern:
 

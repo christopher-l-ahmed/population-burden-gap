@@ -19,7 +19,7 @@ If you’re newer to GitHub or newer to working with multiple R and Quarto files
 
 After that, you'll be ready to start running the R code in this repository with ease!
 
-## 📁 R/ — The Metric Functions
+## 📁 R/ — Functions are Stored as Seperate R Files
 
 This folder contains functions used throughout the analysis.
 

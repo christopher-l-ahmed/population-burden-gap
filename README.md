@@ -21,7 +21,7 @@ After that, you'll be ready to start running the R code in this repository with 
 
 ## 📁 R/ — The Metric Functions
 
-This folder contains functions used throughout the analysis. Each function lives in its own file.
+This folder contains functions used throughout the analysis.
 
 - `compute_pbg.R` — calculates Population Burden Gap (PBG)
 - `compute_delta_pbg.R` — calculates the change between two map verions' PBG values (ΔPBG)

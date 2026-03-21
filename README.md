@@ -26,7 +26,7 @@ If you’re newer to GitHub or to working with multiple R and Quarto files, this
 - the different files in my repository and the tasks they run (at a high level)  
 - why I used several Quarto and R files (instead of one long script)
 
-I hope this makes ite easier to engage with the R code in this repository.
+I hope this makes it easier to engage with the R code in this repository.
 
 ---
 
@@ -44,7 +44,7 @@ You don’t need to edit these files. Instead, Quarto will read them using `sour
 
 ## 📄 analysis/ — Each Major Step Lives in Its Own Quarto File
 
-In ___ (forthcoming paper), I calculate PBG and ΔPBG for three versions of Washington State’s EHD Map. To test how sensitive PBG and ΔPBG are to practical dataset and geography changes I re‑calculate the metrics under the following hypothetical scenarios:
+In ___ (forthcoming paper), I calculate PBG and ΔPBG for three versions of Washington State’s EHD Map. To test how sensitive PBG and ΔPBG are to practical dataset and geography changes, I re‑calculate the metrics under the following hypothetical scenarios:
 
 - **Indicator Stability:** What if the same indicators were always used across versions?  
 - **Geographic Stability:** What if census tract boundaries never changed with the 2020 decennial census?  

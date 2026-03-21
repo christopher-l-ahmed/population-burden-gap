@@ -18,27 +18,43 @@ If you’re newer to GitHub or newer to working with multiple R and Quarto files
 
 After that, you'll be ready to start running the R code in this repository with ease!
 
-## 📁 R/ — Functions are Stored as Seperate .R Files
+
+## <span style="color:#2e6f40;">The Easy Way to Use This GitHub Repository</span>
+
+If you’re newer to GitHub or to working with multiple R and Quarto files, this section is for you. I’ll walk you through:
+
+- the different files in my repository and the tasks they run (at a high level)  
+- why I used several Quarto and R files (instead of one long script)
+
+I hope this makes ite easier to engage with the R code in this repository.
+
+---
+
+## 📁 R/ — Metric Functions Stored as Separate `.R` Files
 
 This folder contains functions used throughout the analysis.
 
-- `compute_pbg.R` — calculates Population Burden Gap (PBG)
-- `compute_delta_pbg.R` — calculates the change between two map verions' PBG values (the ΔPBG)
+- `compute_pbg.R` — calculates the Population Burden Gap (PBG)  
+- `compute_delta_pbg.R` — calculates the change between two map versions’ PBG values (ΔPBG)  
 - `helpers.R` — more functions used to simplify code along the way
 
 You don’t need to edit these files. Instead, Quarto will read them using `source()`.
 
 ---
 
-## 📄 Quarto/ — Analysis Occurs in Seperate .qmd Quarto Files
+## 📄 analysis/ — Each Major Step Lives in Its Own Quarto File
 
-In ___ (forthcoming paper), I show to calculate PBG and ΔPBG values and what those values are for the three versions of WA's EHD map. I then re-calculate these values under the following scenarios:
+In ___ (forthcoming paper), I calculate PBG and ΔPBG for three versions of Washington State’s EHD Map. To test how sensitive PBG and ΔPBG are to practical dataset and geography changes I re‑calculate the metrics under the following hypothetical scenarios:
 
-1. What if the same indicators where always used across versions?
-2. What if census tract boundaries never changed with the new 2020 deciminal census?
-3. What if both these hypothenicals were true?
+- **Indicator Stability:** What if the same indicators were always used across versions?  
+- **Geographic Stability:** What if census tract boundaries never changed with the 2020 decennial census?  
+- **Combined Stability:** What if *both* hypotheticals were true?  
 
-After conducting this sensitivity analysis I compared how sensitiy PBG and ΔPBG are to these changes. Because this GitHub Repository was amde to doucment my work in that paper, I am including all of my analysis. I could have placed the full analysis in one script, however, to make it easier for the practioner I have placed each major part of the analysis in seperate Quarto documents. The workflow inside each Quarto file follows the same pattern:
+After running these sensitivity analyses, I compare how stable PBG and ΔPBG are across all scenarios.
+
+This repository documents the full workflow behind ___ (forthcoming paper). To keep the script short, readable, and focused, each major part of the analysis is placed in its own Quarto file.
+
+Each Quarto file follows the same workflow:
 
 1. Load libraries  
 2. Load the metric functions from the `R/` folder  
@@ -49,9 +65,9 @@ After conducting this sensitivity analysis I compared how sensitiy PBG and ΔPBG
 The files are organized in the order you should run them:
 
 - `01_baseline.qmd` — calculates PBG and ΔPBG using the three EHD Map versions  
-- `02_sensitivity_1.qmd` — runs sensitivity analysis #1 and recomputes the metrics  
-- `03_sensitivity_2.qmd` — sensitivity analysis #2  
-- `04_sensitivity_3.qmd` — sensitivity analysis #3  
+- `02_indicator_stability.qmd` — sensitivity analysis: constant indicators across versions  
+- `03_geographic_stability.qmd` — sensitivity analysis: constant tract boundaries  
+- `04_combined_stability.qmd` — sensitivity analysis: indicators + boundaries held constant  
 - `05_compare_sensitivity.qmd` — compares all sensitivity analyses to the baseline  
 
 You can open and run these files one at a time. Each one is self‑contained.
@@ -60,8 +76,8 @@ You can open and run these files one at a time. Each one is self‑contained.
 
 ## 🚀 How to Get Started
 
-1. Read ___ (paper forthcoming) to understand PBG, ΔPBG, and how to interept them using the Fairness of Distribution (FoD) framework
-2. Open `analysis/01_baseline.qmd`  
-3. Run the document from top to bottom  
-4. Move on to the sensitivity files if you want to explore how robust the metrics are
+1. Read the forthcoming paper to understand PBG, ΔPBG, and how to interpret them using the Fairness of Distribution (FoD) framework.  
+2. Open `analysis/01_baseline.qmd`.  
+3. Run the document from top to bottom.  
+4. Move on to the sensitivity files if you want to explore how robust the metrics are.
 

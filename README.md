@@ -1,4 +1,4 @@
-# Δ Population Burden Gap (PBG)
+# Δ Population Burden Gap (ΔPBG)
 This repository contains the reproducible R code for calculating the Population Burden Gap (PBG) and its longitudinal derivative, ΔPBG.
 
 These metrics provide a standardized way to track how environmental health disparities shift over time across successive versions of cumulative impact maps (specifically Washington State’s EHD Map).

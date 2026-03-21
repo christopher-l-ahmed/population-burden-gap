@@ -12,7 +12,7 @@ If you use this metric or code in your work, please cite the forthcoming paper: 
 
 You can also cite the GitHub repository directly if you want to reference the code itself — the implementation, the workflow, the reproducibility. This is the canonical home of PBG and ΔPBG.
 
-* Christopher Ahmed. (2026). *Population Burden Gap (PBG) and ΔPBG metrics: Reproducible code and analysis*. GitHub repository. https://github.com/christopher-l-ahmed/populatoin-burden-gap
+* Christopher Ahmed. (2026). *Population Burden Gap (PBG) and ΔPBG metrics: Reproducible code and analysis*. [GitHub repository]. https://github.com/christopher-l-ahmed/population-burden-gap
 
 
 # The Easy Way to Use This GitHub Repository

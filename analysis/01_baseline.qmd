@@ -1,1 +1,48 @@
+---
+title: "01 Baseline Analysis"
+format: html
+editor: visual
+---
 
+# Baseline Analysis
+
+**Summary**: read in V1, V2, and V3 of the Washington State EHD map and calculate a Population Burden Gap (PBG) for people of color for each version. Then, calculate a ΔPBG between V1 and V2, and V2 and V3. This is the native PBG and ΔPBG calculation our sensitivty analysis PBG and ΔPBG values will be compared to.
+
+```{r, message=FALSE, warning=FALSE}
+
+#Load Libraries (install if needed)
+pkgs <- c("tidyverse", "sf", "arcgislayers")
+
+for (p in pkgs) {
+  if (!requireNamespace(p, quietly = TRUE)) {
+    install.packages(p)
+  }
+  suppressPackageStartupMessages(
+    library(p, character.only = TRUE)
+  )
+}
+```
+
+```{r}
+#Load custom functions
+source("../R/compute_pbg.R")
+source("../R/compute_delta_pbg.R")
+source("../R/helpers.R")
+```
+
+```{r}
+#Load data (EHD map V1, V2, and V3)
+
+```
+
+```{r}
+#Calculate PBG
+```
+
+```{r}
+#Calculate ΔPBG
+```
+
+```{r}
+#Data Table + Chart
+```

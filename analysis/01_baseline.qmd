@@ -8,35 +8,39 @@ editor: visual
 
 **Summary**: read in V1, V2, and V3 of the Washington State EHD map and calculate a Population Burden Gap (PBG) for people of color for each version. Then, calculate a ΔPBG between V1 and V2, and V2 and V3. This is the native PBG and ΔPBG calculation our sensitivty analysis PBG and ΔPBG values will be compared to.
 
-```{r, message=FALSE, warning=FALSE}
-
-#Load Libraries (install if needed)
-pkgs <- c("tidyverse", "sf", "arcgislayers")
-
-for (p in pkgs) {
-  if (!requireNamespace(p, quietly = TRUE)) {
-    install.packages(p)
-  }
-  suppressPackageStartupMessages(
-    library(p, character.only = TRUE)
-  )
-}
-```
-
 ```{r}
-#Load custom functions
-source("../R/compute_pbg.R")
-source("../R/compute_delta_pbg.R")
+#Read functions
 source("../R/helpers.R")
+source("../R/compute_pbg.R")
 ```
 
-```{r}
-#Load data (EHD map V1, V2, and V3)
+```{r, message=FALSE, warning=FALSE}
+#Read Libraries
+load_packages(c("tidyverse", "sf", "arcgislayers"))
+```
 
+```{r, message=FALSE, warning=FALSE}
+#The EHD map V1, V2, and V3 data can be pulled from API url links on the WA GeoPortal website (https://geo.wa.gov/), below are the Esri Rest Service layer url's
+EHDv1_url <- "https://services8.arcgis.com/rGGrs6HCnw87OFOT/arcgis/rest/services/EHD_Combined_V1/FeatureServer/0"
+EHDv2_url <- "https://services8.arcgis.com/rGGrs6HCnw87OFOT/arcgis/rest/services/EHD_Combined_V2/FeatureServer/0"
+EHDv3_url <- "https://services8.arcgis.com/rGGrs6HCnw87OFOT/arcgis/rest/services/Full_Extract_Environmental_Health_Disparities_Map_Version3/FeatureServer/0"
+
+#Read data
+EHDv1_data <- arc_open(EHDv1_url) %>% arc_select()
+EHDv2_data <- arc_open(EHDv2_url) %>% arc_select()
+EHDv3_data <- arc_open(EHDv3_url) %>% arc_select()
+
+#Remove the now uneeded urls
+rm("EHDv1_url","EHDv2_url","EHDv3_url")
 ```
 
 ```{r}
 #Calculate PBG
+EHDv1_PBG <- compute_pbg_components(
+  data = EHDv1_data,
+  pop_group = Percent_POC,
+  pop_total = total_pop,
+  burden = Environmental_Health_Disparites)
 ```
 
 ```{r}

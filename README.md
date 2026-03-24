@@ -14,6 +14,7 @@ You can also cite the GitHub repository directly if you want to reference the co
 
 * Christopher Ahmed. (2026). *Population Burden Gap (PBG) and ΔPBG metrics: Reproducible code and analysis*. [GitHub repository]. https://github.com/christopher-l-ahmed/population-burden-gap
 
+**Key Distinction:** Unlike traditional EJ tool support metrics that rely on sample statistics, PBG/ΔPBG produces population parameters. This allows for direct longitudinal comparison of gap magnitudes without the need for traditional hypothesis testing (p-values).
 
 # The Easy Way to Use This GitHub Repository
 If you’re newer to GitHub or to working with multiple R and Quarto files, this section is for you. I’ll walk you through:

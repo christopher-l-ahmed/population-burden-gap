@@ -16,7 +16,7 @@ source("../R/compute_pbg.R")
 
 ```{r, message=FALSE, warning=FALSE}
 #Read Libraries
-load_packages(c("tidyverse", "sf", "arcgislayers"))
+load_packages(c("tidyverse", "sf", "arcgislayers", "tidyverse"))
 ```
 
 ```{r, message=FALSE, warning=FALSE}

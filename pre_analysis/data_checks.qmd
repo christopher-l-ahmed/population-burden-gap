@@ -1,1 +1,256 @@
+---
+title: "data_checks"
+format: html
+editor: visual
+---
 
+# Data Checks
+
+**Summary**: which years of ACS data do V1, V2, and V3 of the EHD map use? In January 2019 V1 of EHD was released, but in December 2019, V1.1 was released. Documentation made me question if the V1 dataset on the WA GeoPortal was V1 or V1.1 which may use 2017 ACS five-year estimates instead of 2016 five-year estimates. To answer this question, I decided to do some back calculations and document it here. Other pre-checks will also be saved in this file.
+
+```{r}
+
+#Read functions
+source("../R/helpers.R")
+source("../R/compute_pbg.R")
+```
+
+```{r, message=FALSE, warning=FALSE}
+
+#Read Libraries
+load_packages(c("tidyverse", "sf", "arcgislayers", "tidycensus"))
+```
+
+```{r, message=FALSE, warning=FALSE}
+
+#The EHD map V1, V2, and V3 data can be pulled from API url links on the WA GeoPortal website (https://geo.wa.gov/), below are the Esri Rest Service layer url's
+EHDv1_url <- "https://services8.arcgis.com/rGGrs6HCnw87OFOT/arcgis/rest/services/EHD_Combined_V1/FeatureServer/0"
+EHDv2_url <- "https://services8.arcgis.com/rGGrs6HCnw87OFOT/arcgis/rest/services/EHD_Combined_V2/FeatureServer/0"
+EHDv3_url <- "https://services8.arcgis.com/rGGrs6HCnw87OFOT/arcgis/rest/services/Full_Extract_Environmental_Health_Disparities_Map_Version3/FeatureServer/0"
+
+#Read data
+EHDv1_data <- arc_open(EHDv1_url) %>% arc_select()
+EHDv2_data <- arc_open(EHDv2_url) %>% arc_select()
+EHDv3_data <- arc_open(EHDv3_url) %>% arc_select()
+
+#Remove the now uneeded urls
+rm("EHDv1_url","EHDv2_url","EHDv3_url")
+```
+
+Back calculate % no high school for V1, V2, and V3 EHD map datasets
+
+```{r, message=FALSE, warning=FALSE}
+
+# Vector of ACS variables for "less than high school diploma"
+No_high_school_ACS <- c(
+  # Male
+  "B15002_003", "B15002_004", "B15002_005", "B15002_006",
+  "B15002_007", "B15002_008", "B15002_009", "B15002_010",
+  # Female
+  "B15002_020", "B15002_021", "B15002_022", "B15002_023",
+  "B15002_024", "B15002_025", "B15002_026", "B15002_027"
+)
+
+# Pull ACS 2012–2016 5-year data for WA census tracts
+V1_2016 <- get_acs(
+  geography = "tract",
+  state = "WA",
+  year = 2016,
+  survey = "acs5",
+  variables = c(
+    total_25plus = "B15002_001",
+    setNames(No_high_school_ACS, No_high_school_ACS)
+  ),
+  geometry = FALSE,
+  output = "wide"
+)
+
+# Add "E" to match tidycensus wide-format column names
+No_high_school_ACS_E <- paste0(No_high_school_ACS, "E")
+
+# Calculate % without a high school diploma
+V1_2016_clean <- V1_2016 %>%
+  mutate(
+    less_than_hs = rowSums(across(all_of(No_high_school_ACS_E))),
+    pct_no_hs = less_than_hs / total_25plusE
+  ) %>%
+  select(GEOID, NAME, total_25plusE, less_than_hs, pct_no_hs)
+
+rm(V1_2016)
+```
+
+```{r, message=FALSE, warning=FALSE}
+
+# Pull ACS 2013–2017 5-year data for WA census tracts
+V1_2017 <- get_acs(
+  geography = "tract",
+  state = "WA",
+  year = 2017,
+  survey = "acs5",
+  variables = c(
+    total_25plus = "B15002_001",
+    setNames(No_high_school_ACS, No_high_school_ACS)
+  ),
+  geometry = FALSE,
+  output = "wide"
+)
+
+# Calculate % without a high school diploma
+V1_2017_clean <- V1_2017 %>%
+  mutate(
+    less_than_hs = rowSums(across(all_of(No_high_school_ACS_E))),
+    pct_no_hs = less_than_hs / total_25plusE
+  ) %>%
+  select(GEOID, NAME, total_25plusE, less_than_hs, pct_no_hs)
+
+rm(V1_2017)
+```
+
+```{r, message=FALSE, warning=FALSE}
+
+# Pull ACS 2015–2019 5-year data for WA census tracts
+V2_2019 <- get_acs(
+  geography = "tract",
+  state = "WA",
+  year = 2019,
+  survey = "acs5",
+  variables = c(
+    total_25plus = "B15002_001",
+    setNames(No_high_school_ACS, No_high_school_ACS)
+  ),
+  geometry = FALSE,
+  output = "wide"
+)
+
+# Calculate % without a high school diploma
+V2_2019_clean <- V2_2019 %>%
+  mutate(
+    less_than_hs = rowSums(across(all_of(No_high_school_ACS_E))),
+    pct_no_hs = less_than_hs / total_25plusE
+  ) %>%
+  select(GEOID, NAME, total_25plusE, less_than_hs, pct_no_hs)
+
+rm(V2_2019)
+```
+
+```{r, message=FALSE, warning=FALSE}
+
+# Pull ACS 2019–2023 5-year data for WA census tracts
+V3_2023 <- get_acs(
+  geography = "tract",
+  state = "WA",
+  year = 2023,
+  survey = "acs5",
+  variables = c(
+    total_25plus = "B15002_001",
+    setNames(No_high_school_ACS, No_high_school_ACS)
+  ),
+  geometry = FALSE,
+  output = "wide"
+)
+
+# Calculate % without a high school diploma
+V3_2023_clean <- V3_2023 %>%
+  mutate(
+    less_than_hs = rowSums(across(all_of(No_high_school_ACS_E))),
+    pct_no_hs = less_than_hs / total_25plusE
+  ) %>%
+  select(GEOID, NAME, total_25plusE, less_than_hs, pct_no_hs)
+
+rm(V3_2023)
+```
+
+```{r, message=FALSE, warning=FALSE}
+
+# Pull ACS 2020–2024 5-year data for WA census tracts
+V3_2024 <- get_acs(
+  geography = "tract",
+  state = "WA",
+  year = 2024,
+  survey = "acs5",
+  variables = c(
+    total_25plus = "B15002_001",
+    setNames(No_high_school_ACS, No_high_school_ACS)
+  ),
+  geometry = FALSE,
+  output = "wide"
+)
+
+# Calculate % without a high school diploma
+V3_2024_clean <- V3_2024 %>%
+  mutate(
+    less_than_hs = rowSums(across(all_of(No_high_school_ACS_E))),
+    pct_no_hs = less_than_hs / total_25plusE
+  ) %>%
+  select(GEOID, NAME, total_25plusE, less_than_hs, pct_no_hs)
+
+rm(V3_2024)
+```
+
+```{r, message=FALSE, warning=FALSE}
+
+# This check shows me that EHD V1 is using 2017 5-year ACS data not 2016
+V1_check <- EHDv1_data%>%
+  left_join(V1_2016_clean, by = c("GEOID10"="GEOID")) %>%
+  rename("Y2016_NHSD" = pct_no_hs) %>%
+  left_join(V1_2017_clean, by = c("GEOID10"="GEOID")) %>%
+  rename("Y2017_NHSD" = pct_no_hs) %>%
+  select(GEOID10,Percent_NHSD,Y2016_NHSD,Y2017_NHSD) %>%
+  mutate(test16 = (Percent_NHSD/100)-Y2016_NHSD,
+         test17 = (Percent_NHSD/100)-Y2017_NHSD) %>%
+  st_drop_geometry()
+
+V1_check %>%
+  summarise(
+    mean_16 = mean(test16, na.rm = TRUE),
+    min_16  = min(test16, na.rm = TRUE),
+    max_16  = max(test16, na.rm = TRUE),
+
+    mean_17 = mean(test17, na.rm = TRUE),
+    min_17  = min(test17, na.rm = TRUE),
+    max_17  = max(test17, na.rm = TRUE))
+```
+
+```{r, message=FALSE, warning=FALSE}
+
+# This check shows me that EHD V2 is using 2019 5-year ACS data
+V2_check <- EHDv2_data%>%
+  left_join(V2_2019_clean, by = c("GEOID10"="GEOID")) %>%
+  rename("Y2019_NHSD" = pct_no_hs) %>%
+  select(GEOID10,No_HS_Diploma,Y2019_NHSD) %>%
+  mutate(test19 = (No_HS_Diploma/100)-Y2019_NHSD) %>%
+  st_drop_geometry()
+
+V2_check %>%
+  summarise(
+    mean_19 = mean(test19, na.rm = TRUE),
+    min_19  = min(test19, na.rm = TRUE),
+    max_19  = max(test19, na.rm = TRUE))
+```
+
+```{r, message=FALSE, warning=FALSE}
+
+# This check shows me that EHD V3 is using 2023 not 2024 5-year ACS data
+# This is interesting becuase the documentation says it usese 2024
+# https://doh.wa.gov/sites/default/files/2026-02/334-579.pdf
+V3_check <- EHDv3_data%>%
+  mutate(GEOID10 = as.character(CensusTract2020)) %>%
+  left_join(V3_2024_clean, by = c("GEOID10"="GEOID")) %>%
+  rename("Y2024_NHSD" = pct_no_hs) %>%
+  left_join(V3_2023_clean, by = c("GEOID10"="GEOID")) %>%
+  rename("Y2023_NHSD" = pct_no_hs) %>%
+  select(GEOID10,No_HS_Diploma,Y2023_NHSD,Y2024_NHSD) %>%
+  mutate(test23 = (No_HS_Diploma/100)-Y2023_NHSD,
+         test24 = (No_HS_Diploma/100)-Y2024_NHSD) %>%
+  st_drop_geometry()
+
+V3_check %>%
+  summarise(
+    mean_23 = mean(test23, na.rm = TRUE),
+    min_23  = min(test23, na.rm = TRUE),
+    max_23  = max(test23, na.rm = TRUE),
+
+    mean_24 = mean(test24, na.rm = TRUE),
+    min_24  = min(test24, na.rm = TRUE),
+    max_24  = max(test24, na.rm = TRUE))
+```

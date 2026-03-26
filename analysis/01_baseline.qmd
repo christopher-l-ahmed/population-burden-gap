@@ -20,27 +20,31 @@ load_packages(c("tidyverse", "sf", "arcgislayers", "tidyverse"))
 ```
 
 ```{r, message=FALSE, warning=FALSE}
-#The EHD map V1, V2, and V3 data can be pulled from API url links on the WA GeoPortal website (https://geo.wa.gov/), below are the Esri Rest Service layer url's
-EHDv1_url <- "https://services8.arcgis.com/rGGrs6HCnw87OFOT/arcgis/rest/services/EHD_Combined_V1/FeatureServer/0"
-EHDv2_url <- "https://services8.arcgis.com/rGGrs6HCnw87OFOT/arcgis/rest/services/EHD_Combined_V2/FeatureServer/0"
-EHDv3_url <- "https://services8.arcgis.com/rGGrs6HCnw87OFOT/arcgis/rest/services/Full_Extract_Environmental_Health_Disparities_Map_Version3/FeatureServer/0"
-
-#Read data
-EHDv1_data <- arc_open(EHDv1_url) %>% arc_select()
-EHDv2_data <- arc_open(EHDv2_url) %>% arc_select()
-EHDv3_data <- arc_open(EHDv3_url) %>% arc_select()
-
-#Remove the now uneeded urls
-rm("EHDv1_url","EHDv2_url","EHDv3_url")
+# Load EHD map data and attach ACS population weights for each version
+EHDv1 <- pull_EHD_data("EHDV1", "ACS_2017")
+EHDv2 <- pull_EHD_data("EHDV2", "ACS_2019")
+EHDv3 <- pull_EHD_data("EHDV3", "ACS_2023")
 ```
 
 ```{r}
 #Calculate PBG
 EHDv1_PBG <- compute_pbg_components(
-  data = EHDv1_data,
-  pop_group = Percent_POC,
-  pop_total = total_pop,
-  burden = Environmental_Health_Disparites)
+  EHDv1,
+  People_of_Color,
+  Total_Population, 
+  Environmental_Health_Disparites)
+
+EHDv2_PBG <- compute_pbg_components(
+  EHDv2,
+  People_of_Color,
+  Total_Population, 
+  Environmental_Health_Disparitie)
+
+EHDv3_PBG <- compute_pbg_components(
+  EHDv3,
+  People_of_Color,
+  Total_Population, 
+  Cumulative_EHD_Rank)
 ```
 
 ```{r}

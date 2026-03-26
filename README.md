@@ -68,7 +68,7 @@ The files are organized in the order you should run them:
 
 You can open and run these files one at a time. Each one is self‑contained.
 
-Note: This repository also includes a pre_analysis/ folder with a small Quarto file documenting the data checks I ran before beginning the main PBG workflow (for example, reconstructing a sample ACS indicator used in the EHD Map to confirm the ACS source year). These steps aren’t required to reproduce the metric, but they document how the input data were verified.
+**Note**: This repository also includes a pre_analysis/ folder with a small Quarto file documenting the data checks I ran before beginning the main PBG workflow (for example, reconstructing a sample ACS indicator used in the EHD Map to confirm the ACS source year). These steps aren’t required to reproduce the metric, but they document how the input data were verified.
 
 ---
 

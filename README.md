@@ -1,5 +1,5 @@
 # Δ Population Burden Gap (ΔPBG)
-This repository contains reproducible R code for calculating the Population Burden Gap (PBG) and its longitudinal counterpart, ΔPBG. The ΔPBG metric tracks changes over time across versions of Environmental Justice (EJ) cumulative impact mapping datasets (using Washington State’s EHD Map as an example).
+This repository contains reproducible R code for calculating the Population Burden Gap (PBG) and its longitudinal counterpart, ΔPBG. The ΔPBG metric tracks changes over time across versions of Environmental Justice (EJ) cumulative impact mapping datasets (using Washington State’s EHD Map as an example). A modification to the metric that focuses on the extremes (high and low EHD rank values) is also introduced called PBGe and ΔPBGe.
 
 # The Paper
 For the full theoretical framework, including the Failure of Distribution (FoD) lens and the "Equity 2.0" discussion, please see the published paper: (forthcoming)
@@ -30,11 +30,10 @@ I hope this makes it easier to engage with the R code in this repository.
 
 This folder contains functions used throughout the analysis.
 
-- `compute_pbg.R` — calculates the Population Burden Gap (PBG)  
-- `compute_delta_pbg.R` — calculates the change between two map versions’ PBG values (ΔPBG)  
-- `helpers.R` — more functions used to simplify code along the way
+- `compute_pbg.R` — calculates the Population Burden Gap (PBG) and the change between two map versions’ PBG values (ΔPBG)  
+- `helpers.R` — functions used to simplify code along the way
 
-You don’t need to edit these files. Instead, Quarto will read them using `source()`.
+You don’t need to work inside these files. Instead, Quarto will read them using `source()`.
 
 ---
 
@@ -48,7 +47,7 @@ In ___ (forthcoming paper), I calculate PBG and ΔPBG for three versions of Wash
 
 After running these sensitivity analyses, I compare how stable PBG and ΔPBG are across all scenarios.
 
-This repository documents the full workflow behind ___ (forthcoming paper). To keep the script short, readable, and focused, each major part of the analysis is placed in its own Quarto file.
+This repository documents the full workflow behind ___ (forthcoming paper). To keep the script readable and focused, each major part of the analysis is placed in its own Quarto file.
 
 Each Quarto file follows the same workflow:
 
@@ -68,7 +67,9 @@ The files are organized in the order you should run them:
 
 You can open and run these files one at a time. Each one is self‑contained.
 
-**Note**: This repository also includes a pre_analysis/ folder with a small Quarto file documenting the data checks I ran before beginning the main PBG workflow (for example, reconstructing a sample ACS indicator used in the EHD Map to confirm the ACS source year). These steps aren’t required to reproduce the metric, but they document how the input data were verified.
+**Note**: This repository also includes a pre_analysis/ folder with the following Quarto files. These files document the data cehcks I ran before conducting the main PBG workflow (for example, reconstructing a sample ACS indicator used in the EHD Map to confirm the ACS source year). These steps aren’t required to reproduce the metric, but they document how the input data were verified.
+1.  01_acs_year_validation.qmd - double check which year of ACS data is used in V1, V2, and V3 of the EHD map
+2.  02_indicator_distributions.qmd = before re-creating the V1-style EHD for V2 and V3 data, check measure distributions
 
 ---
 

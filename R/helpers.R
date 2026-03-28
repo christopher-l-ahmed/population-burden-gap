@@ -2,6 +2,8 @@
 # Utility functions used across the analysis pipeline
 # ---------------------------------------------------
 
+# Library Load/Install -----------------------------------------------------------
+
 # Load packages + install if needed + limit messages
 load_packages <- function(pkgs) {
   for (p in pkgs) {
@@ -15,7 +17,7 @@ load_packages <- function(pkgs) {
   invisible(NULL)
 }
 
-
+# EHD Data Pull ------------------------------------------------------------------
 
 # Pull EHD map data by version, attach ACS total population and people of color 
 # counts for the corresponding survey year, and return a cleaned, joined dataset.

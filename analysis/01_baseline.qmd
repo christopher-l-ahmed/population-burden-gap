@@ -45,10 +45,38 @@ EHDv3_PBG <- compute_pbg_components(
   People_of_Color,
   Total_Population, 
   Cumulative_EHD_Rank)
+
+EHDv1_PBG
+EHDv2_PBG
+EHDv3_PBG
 ```
 
 ```{r}
-#Calculate ΔPBG
+#Calculate PBGe
+EHDv1_PBGe <- compute_pbg_components(
+  EHDv1,
+  People_of_Color,
+  Total_Population, 
+  Environmental_Health_Disparites,
+  extremes = c(1,2,3,8,9,10))
+
+EHDv2_PBGe <- compute_pbg_components(
+  EHDv2,
+  People_of_Color,
+  Total_Population, 
+  Environmental_Health_Disparitie,
+  extremes = c(1,2,3,8,9,10))
+
+EHDv3_PBGe <- compute_pbg_components(
+  EHDv3,
+  People_of_Color,
+  Total_Population, 
+  Cumulative_EHD_Rank,
+  extremes = c(1,2,3,8,9,10))
+
+EHDv1_PBGe
+EHDv2_PBGe
+EHDv3_PBGe
 ```
 
 ```{r}

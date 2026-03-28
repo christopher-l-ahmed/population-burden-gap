@@ -1,10 +1,10 @@
 ---
-title: "data_checks"
+title: "01_acs_year_validation"
 format: html
 editor: visual
 ---
 
-# Data Checks
+# Data Check ACS Data Years Being Used in EHD V1, V2, and V3
 
 **Summary**: which years of ACS data do V1, V2, and V3 of the EHD map use? In January 2019 V1 of EHD was released, but in December 2019, V1.1 was released. Documentation made me question if the V1 dataset on the WA GeoPortal was V1 or V1.1 which may use 2017 ACS five-year estimates instead of 2016 five-year estimates. To answer this question, I decided to do some back calculations and document it here. Other pre-checks will also be saved in this file.
 

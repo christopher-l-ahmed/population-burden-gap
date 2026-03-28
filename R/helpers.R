@@ -217,10 +217,11 @@ pull_EHD_data <- function(ehd_version, acs_year, state = "WA") {
                paste(missing_fields, collapse = "\n ")))
   }
   
-  # --- Rename and select standardized fields ---
+  # --- Rename, select, and coerce standardized fields ---
   ehd_data <- ehd_data |>
     rename(all_of(rename_map)) |>
-    select(all_of(names(rename_map)))
+    select(all_of(names(rename_map))) |>
+    mutate(across(-GEOID10, as.numeric))
   
   # --- Pull ACS data ---
   message("Pulling ACS ", year_num, " 5-year estimates...")

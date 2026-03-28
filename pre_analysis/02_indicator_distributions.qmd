@@ -1,1 +1,164 @@
+---
+title: "02 - Indicator Distribution Comparison"
+format: html
+---
 
+# Purpose
+
+Before reconstructing EHD map ranks using V1 indicators applied to V2 and V3 data, this document checks whether the raw distributions of shared indicators are broadly comparable across versions. We compare both raw indicator values and pre-existing DOH ranks. Surprising distributional shifts may reflect intentional methodological updates, data source changes, or potential comparability concerns worth noting in the paper.
+
+## Setup
+
+```{r, message=FALSE, warning=FALSE}
+source("../R/helpers.R")
+source("../R/compute_pbg.R")
+load_packages(c("tidyverse", "sf", "arcgislayers", "tidycensus", "gt"))
+```
+
+```{r, message=FALSE, warning=FALSE}
+# Load EHD map data and attach ACS population weights for each version
+EHDv1 <- pull_EHD_data("EHDV1", "ACS_2017")
+EHDv2 <- pull_EHD_data("EHDV2", "ACS_2019")
+EHDv3 <- pull_EHD_data("EHDV3", "ACS_2023")
+```
+
+## Indicator Distribution Comparison Function
+
+```{r}
+compare_indicator_distributions <- function(v1, v2, v3, indicators) {
+  
+  versions <- list(V1 = v1, V2 = v2, V3 = v3)
+  
+  map_dfr(indicators, function(ind) {
+    map_dfr(names(versions), function(ver) {
+      
+      # Skip if indicator doesn't exist in this version
+      if (!ind %in% names(versions[[ver]])) {
+        return(tibble(
+          Version   = ver,
+          Indicator = ind,
+          Mean      = NA_real_,
+          Median    = NA_real_,
+          SD        = NA_real_,
+          Min       = NA_real_,
+          Max       = NA_real_,
+          Pct_NA    = NA_real_
+        ))
+      }
+      
+      x <- versions[[ver]][[ind]]
+      tibble(
+        Version   = ver,
+        Indicator = ind,
+        Mean      = round(mean(x, na.rm = TRUE), 3),
+        Median    = round(median(x, na.rm = TRUE), 3),
+        SD        = round(sd(x, na.rm = TRUE), 3),
+        Min       = round(min(x, na.rm = TRUE), 3),
+        Max       = round(max(x, na.rm = TRUE), 3),
+        Pct_NA    = round(100 * mean(is.na(x)), 1)
+      )
+    })
+  })
+}
+```
+
+## Raw Indicator Values
+
+```{r}
+# Shared raw indicators across all three versions
+# Note: RSEI excluded from V3 as it was combined with Diesel in that version
+raw_indicators <- c(
+  "DieselEmissions",
+  "Ozone_Concentration",
+  "PM2_5",
+  "Heavy_Traffic_Proximity",
+  "Lead_Risk_Housing",
+  "TSDFs",
+  "PNPL",
+  "PRMP",
+  "Wastewater_Discharge",
+  "LEP",
+  "No_HS_Diploma",
+  "Percent_POC",
+  "Poverty_Rate",
+  "Transportation_Expense",
+  "Unaffordable_Housing",
+  "Unemployment_Rate",
+  "CVD_Death",
+  "Low_Birth_Weight",
+  "RSEI"   # V3 will show NA — expected and documented
+)
+
+raw_comparison <- compare_indicator_distributions(EHDv1, EHDv2, EHDv3, 
+                                                   raw_indicators)
+```
+
+```{r}
+# View results
+raw_comparison |>
+  gt() |>
+  tab_header(
+    title    = "Raw Indicator Distribution Comparison",
+    subtitle = "V1 (2017 ACS), V2 (2019 ACS), V3 (2023 ACS)"
+  ) |>
+  fmt_number(columns = c(Mean, Median, SD, Min, Max), decimals = 3) |>
+  fmt_number(columns = Pct_NA, decimals = 1) |>
+  tab_style(
+    style = cell_fill(color = "#fff3cd"),
+    locations = cells_body(rows = is.na(Mean))
+  )
+```
+
+## Pre-Existing DOH Ranks
+
+```{r}
+# Same indicators but using DOH's pre-existing rank columns
+rank_indicators <- c(
+  "DieselEmissions_Rank",
+  "Ozone_Concentration_Rank",
+  "PM2_5_Rank",
+  "Heavy_Traffic_Rank",
+  "Lead_Risk_Rank",
+  "TSDFs_Rank",
+  "PNPL_Rank",
+  "PRMP_Rank",
+  "Wastewater_Rank",
+  "LEP_Rank",
+  "No_HS_Diploma_Rank",
+  "POC_Rank",
+  "Poverty_Rank",
+  "Transportation_Rank",
+  "Unaffordable_Housing_Rank",
+  "Unemployment_Rank",
+  "CVD_Rank",
+  "Low_Birth_Weight_Rank",
+  "RSEI_Rank"  # V3 will show NA — expected and documented
+)
+
+rank_comparison <- compare_indicator_distributions(EHDv1, EHDv2, EHDv3,
+                                                    rank_indicators)
+```
+
+```{r}
+# View results
+rank_comparison |>
+  gt() |>
+  tab_header(
+    title    = "DOH Pre-Existing Rank Distribution Comparison",
+    subtitle = "V1 (2017 ACS), V2 (2019 ACS), V3 (2023 ACS)"
+  ) |>
+  fmt_number(columns = c(Mean, Median, SD, Min, Max), decimals = 3) |>
+  fmt_number(columns = Pct_NA, decimals = 1) |>
+  tab_style(
+    style = cell_fill(color = "#fff3cd"),
+    locations = cells_body(rows = is.na(Mean))
+  )
+```
+
+## Notes
+
+-   V3 RSEI rows will appear highlighted in yellow with NA values. This is expected — V3 combined Diesel and RSEI into one measure. See paper methods for full discussion.
+-   Large distributional shifts in raw values may reflect intentional methodological updates documented in EHD technical reports rather than data quality issues.
+-   Rank distributions should be broadly similar across versions (mean near 5.5, roughly uniform) since DOH applies the same decile ranking method to each version. Meaningful deviations are worth investigating.
+
+\

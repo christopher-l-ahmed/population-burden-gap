@@ -1,1 +1,31 @@
+---
+title: "02 Indicator Stability"
+format: html
+editor: visual
+---
 
+# Sensitivity Analysis #1: What if We Always Use the Same Measures?
+
+**Summary**: if the EHD indicator/variable selections were the same for versions 1, 2, and 3, would that change the PBG metric values? In other words, in the code below we are testing how sensitive the PBG metrics are to EHD map indicator changes over time. Step 1 is to re-create versions 2 and 3 of the EHD map in a way that perfectly matches version 1. Then, we will re-run the PBG metrics to see how they changed.
+
+```{r}
+#Read functions
+source("../R/helpers.R")
+source("../R/compute_pbg.R")
+```
+
+```{r, message=FALSE, warning=FALSE}
+#Read Libraries
+load_packages(c("tidyverse", "sf", "arcgislayers", "tidyverse"))
+```
+
+```{r, message=FALSE, warning=FALSE}
+# Load EHD map data and attach ACS population weights for each version
+EHDv1 <- pull_EHD_data("EHDV1", "ACS_2017")
+EHDv2 <- pull_EHD_data("EHDV2", "ACS_2019")
+EHDv3 <- pull_EHD_data("EHDV3", "ACS_2023")
+
+# Note: EHDv3 contains 44 fields vs 46 for V1/V2 — V3 combined Diesel and RSEI
+# into one measure. RSEI is excluded from V3 for V1-style reconstruction.
+# See paper methods for full discussion.
+```
